@@ -1,0 +1,59 @@
+name: "Rails CI"
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+  
+jobs:
+  rspec:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:14.2
+        env:
+          POSTGRES_USER: railsapp
+          POSTGRES_PASSWORD: test_db_password
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    env:
+      RAILS_ENV: "test"
+      RAILS_MAX_THREADS: 5
+      DATABASE_USERNAME: "railsapp"
+      DATABASE_PASSWORD: "test_db_password"
+      DATABASE_HOST: "localhost"
+      DATABASE_NAME: "railsapp"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          
+      - name: Set up database schema
+        run: bin/rails db:prepare
+        
+      - name: Run tests
+        run: bundle exec rspec
+
+  rubocop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          
+      - name: Rubocop files
+        run: bundle exec rubocop --parallel
