@@ -15,6 +15,7 @@ gem 'rails', '~> 7.0.4', '>= 7.0.4.2'
 gem 'redis', '~> 4.0'
 gem 'sassc-rails'
 gem 'sidekiq'
+gem 'devise'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
