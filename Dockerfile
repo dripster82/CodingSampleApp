@@ -12,6 +12,9 @@ RUN bundle install
 
 # Clear old pid file
 RUN rm -f $INSTALL_PATH/tmp/pids/server.pid
+
+# Ensure all assets are created
+RUN rails assets:precompile
 EXPOSE 8010
 
 # Start server
