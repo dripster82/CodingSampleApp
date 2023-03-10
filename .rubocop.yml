@@ -42,6 +42,7 @@ AllCops:
     - config.ru
     - vendor/**/*
     - bin/**/*
+    - db/schema.rb
 
   DisplayCopNames: true
   StyleGuideCopsOnly: false

@@ -22,10 +22,11 @@ services:
   railsapp:
     build:
       context: .
-    volumes:
-      - .:/opt/app
-    ports:
-      - '8010'
+    deploy:
+      replicas: 3
+      mode: dnsrr
+    ports: 
+      - "8010"
     links:
       - postgres
       - redis
