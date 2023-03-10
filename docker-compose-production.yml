@@ -19,39 +19,14 @@ services:
     volumes:
       - railsapp-redis:/var/lib/redis/data
 
-  railsapp-1:
+  railsapp:
     build:
       context: .
-    ports:
-      - '8010'
-    links:
-      - postgres
-      - redis
-    depends_on:
-      - postgres
-      - redis
-    env_file:
-      - .env
-
-  railsapp-2:
-    build:
-      context: .
-    ports:
-      - '8010'
-    links:
-      - postgres
-      - redis
-    depends_on:
-      - postgres
-      - redis
-    env_file:
-      - .env
-
-  railsapp-3:
-    build:
-      context: .
-    ports:
-      - '8010'
+    deploy:
+      replicas: 3
+      mode: dnsrr
+    ports: 
+      - "8010"
     links:
       - postgres
       - redis
@@ -76,18 +51,13 @@ services:
 
   nginx:
     image: nginx:latest
-    volumes:
+    volumes: 
       - ./reverse-proxy.conf:/etc/nginx/nginx.conf:ro
-    links:
-      - railsapp-1
-      - railsapp-2
-      - railsapp-3
-    depends_on:
-      - railsapp-1
-      - railsapp-2
-      - railsapp-3
     ports:
-      - '8020:8020'
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - railsapp
 
 volumes:
   railsapp-postgres:

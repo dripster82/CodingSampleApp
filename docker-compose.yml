@@ -22,8 +22,6 @@ services:
   railsapp:
     build:
       context: .
-    # scale:
-    #   3
     volumes:
       - .:/opt/app
     ports:

@@ -6,11 +6,12 @@ RUN mkdir -p $INSTALL_PATH
 
 # Install gems
 WORKDIR $INSTALL_PATH
-COPY . .
+COPY Gemfile* .
 RUN gem install rails bundler
 RUN bundle install
 
 # Clear old pid file
+COPY . .
 RUN rm -f $INSTALL_PATH/tmp/pids/server.pid
 
 # Ensure all assets are created
