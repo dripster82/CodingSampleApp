@@ -37,8 +37,7 @@ services:
       - .env
 
   sidekiq:
-    build:
-      context: .
+    image: codingexampleapp-railsapp:latest
     command: bundle exec sidekiq 
     links:
       - postgres
@@ -46,6 +45,7 @@ services:
     depends_on:
       - postgres
       - redis
+      - railsapp
     env_file:
       - .env
 

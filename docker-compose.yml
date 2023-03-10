@@ -36,8 +36,7 @@ services:
       - .env
 
   sidekiq:
-    build:
-      context: .
+    image: codingexampleapp-railsapp:latest
     command: bundle exec sidekiq 
     links:
       - postgres
@@ -45,19 +44,19 @@ services:
     depends_on:
       - postgres
       - redis
+      - railsapp
     env_file:
       - .env
 
   nginx:
     image: nginx:latest
-    volumes:
+    volumes: 
       - ./reverse-proxy.conf:/etc/nginx/nginx.conf:ro
-    links:
-      - railsapp
+    ports:
+      - "80:80"
+      - "443:443"
     depends_on:
       - railsapp
-    ports:
-      - '8020:8020'
 
 volumes:
   railsapp-postgres:
