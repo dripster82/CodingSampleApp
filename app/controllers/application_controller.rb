@@ -9,7 +9,9 @@ class ApplicationController < ActionController::Base
     return unless already_logged_in?
 
     sign_out_and_redirect(current_user)
-    flash[:notice] = 'You have been logged out, because you have logged in elsewhere'
+    # rubocop:disable Rails/ActionControllerFlashBeforeRender:
+    flash[:notice] = I18n.t('signout_due_to_other_session')
+    # rubocop:enable Rails/ActionControllerFlashBeforeRender:
   end
 
   def already_logged_in?

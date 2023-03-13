@@ -16,8 +16,8 @@ RSpec.describe 'shared/_flash.html.erb', type: :view do
     render
 
     assert_select 'div', count: 3
-    assert_select 'div.flash_error_message', text: 'This is an error, RUN!', count: 1
-    assert_select 'div.flash_message_message', text: 'This is a message, Hello?', count: 1
-    assert_select 'div.flash_notice_message', text: 'This is a notice, Tests are running?', count: 1
+    assert_select 'div.flash_error', text: 'This is an error, RUN!', count: 1
+    assert_select 'div.flash_message', text: 'This is a message, Hello?', count: 1
+    assert_select 'div.flash_notice', text: 'This is a notice, Tests are running?', count: 1
   end
 end
