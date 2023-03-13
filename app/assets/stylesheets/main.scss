@@ -2,11 +2,13 @@ body {
     float:left;
     width:100%;
 }
-
+.main {
+    width:100%;
+    display: inline-block;
+}
 nav {
     float: left;
-    display: inline-block;
-    margin-right: -200px;
+    margin-right: -300px;
     width: 100%;
     background-color: lightblue;
     padding: 0 10px;
@@ -27,14 +29,12 @@ nav {
 
 .account_menu {
     float:right;
-    display:inline-block;
-    width:180px;
-    display: inline-block;
+    width:280px;
     text-align: right;
 
     p {
         margin: 0 10px;
-
+        display: inline-block;
         a {
             padding: 10px 0;
             display: inline-block;
@@ -46,4 +46,23 @@ nav {
             }
         }
     }
+}
+@mixin notice_style($bg-color, $txt-color: black) {
+    float:left;
+    background: $bg-color;
+    color: $txt-color;
+    width: 100%;
+    padding: 15px 0 ;
+    text-align: center;
+}
+
+
+.flash_message {
+    @include notice_style((orange));
+}
+.flash_notice {
+    @include notice_style((limegreen));
+}
+.flash_error {
+    @include notice_style(red, white);
 }

@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     return unless already_logged_in?
 
     sign_out_and_redirect(current_user)
-    flash.now[:notice] = 'You have been logged out, because you have logged in elsewhere'
+    flash[:notice] = 'You have been logged out, because you have logged in elsewhere'
   end
 
   def already_logged_in?
