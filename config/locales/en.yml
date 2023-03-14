@@ -1,3 +1,11 @@
 en:
-  hello: 'Hello world'
   signout_due_to_other_session: 'You have been logged out, because you have logged in elsewhere'
+  project:
+    created: 'Project was successfully created.'
+    updated: 'Project was successfully updated.'
+    deleted: 'Project was successfully destroyed.'
+  comments:
+    created: 'Comment was successfully created.'
+    updated: 'Comment was successfully updated.'
+    deleted: 'Comment was successfully destroyed.'
+

@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "comments/show", type: :view do
-  before(:each) do
+RSpec.describe 'comments/show', type: :view do
+  before do
     assign(:comment, Comment.create!(
-      body: "MyText",
+      body: 'MyText',
       project: nil,
       user: nil
     ))
   end
 
-  it "renders attributes in <p>" do
+  it 'renders attributes in <p>' do
     render
     expect(rendered).to match(/MyText/)
     expect(rendered).to match(//)

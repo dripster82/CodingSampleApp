@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  has_many :comments
-  
+  has_many :comments, dependent: :destroy
+  has_and_belongs_to_many :projects
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :trackable, :timeoutable

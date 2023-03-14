@@ -3,6 +3,9 @@ require:
   - rubocop-rails
   - rubocop-performance
 
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
 RSpec/NamedSubject:
   Enabled: false
 
