@@ -10,21 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_10_014324) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_14_164321) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "groups", force: :cascade do |t|
-    t.string "name"
+  create_table "comments", force: :cascade do |t|
+    t.text "body"
+    t.bigint "project_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_comments_on_project_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "groups_users", id: false, force: :cascade do |t|
+  create_table "projects", force: :cascade do |t|
+    t.string "name"
+    t.string "code", null: false
+    t.bigint "leader_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status"
+    t.index ["code"], name: "index_projects_on_code", unique: true
+    t.index ["leader_id"], name: "index_projects_on_leader_id"
+  end
+
+  create_table "projects_users", id: false, force: :cascade do |t|
+    t.bigint "project_id", null: false
     t.bigint "user_id", null: false
-    t.bigint "group_id", null: false
-    t.index ["group_id", "user_id"], name: "index_groups_users_on_group_id_and_user_id"
-    t.index ["user_id", "group_id"], name: "index_groups_users_on_user_id_and_group_id"
+    t.index ["project_id", "user_id"], name: "index_projects_users_on_project_id_and_user_id"
+    t.index ["user_id", "project_id"], name: "index_projects_users_on_user_id_and_project_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -39,7 +54,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_014324) do
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.integer "role", default: 0
-    t.integer "test_role", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "current_login_token"
@@ -47,4 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_014324) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "comments", "projects"
+  add_foreign_key "comments", "users"
+  add_foreign_key "projects", "users", column: "leader_id"
 end
