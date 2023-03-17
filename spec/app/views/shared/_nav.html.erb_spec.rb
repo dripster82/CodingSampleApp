@@ -7,7 +7,7 @@ RSpec.describe 'shared/_nav.html.erb', type: :view do
     render
     assert_select 'a', count: 3
     assert_select 'a', text: 'Home'.to_s, count: 1
-    assert_select 'a', text: 'Blog'.to_s, count: 1
+    assert_select 'a', text: 'Projects'.to_s, count: 1
     assert_select 'a', text: 'Contact Us'.to_s, count: 1
   end
 

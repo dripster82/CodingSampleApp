@@ -4,11 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'comments/new', type: :view do
   before do
-    assign(:comment, Comment.new(
-      body: 'MyText',
-      project: nil,
-      user: nil
-    ))
+    assign(:comment, Comment.new)
   end
 
   it 'renders new comment form' do

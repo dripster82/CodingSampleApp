@@ -3,11 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe 'projects/edit', type: :view do
+  let(:leader) { create(:user, email: 'jeff@jones.com', password: 'password1234') }
   let(:project) {
     Project.create!(
       name: 'MyString',
       code: 'MyString',
-      leader: nil
+      leader:,
+      status: 'ready'
     )
   }
 

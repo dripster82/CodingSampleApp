@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_13_123602) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_14_164321) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,25 +24,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_123602) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "groups", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "groups_users", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "group_id", null: false
-    t.index ["group_id", "user_id"], name: "index_groups_users_on_group_id_and_user_id"
-    t.index ["user_id", "group_id"], name: "index_groups_users_on_user_id_and_group_id"
-  end
-
   create_table "projects", force: :cascade do |t|
     t.string "name"
-    t.string "code"
-    t.bigint "leader_id", null: false
+    t.string "code", null: false
+    t.bigint "leader_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status"
+    t.index ["code"], name: "index_projects_on_code", unique: true
     t.index ["leader_id"], name: "index_projects_on_leader_id"
   end
 
@@ -65,7 +54,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_123602) do
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.integer "role", default: 0
-    t.integer "test_role", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "current_login_token"

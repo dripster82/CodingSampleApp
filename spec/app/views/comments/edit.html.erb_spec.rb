@@ -3,11 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe 'comments/edit', type: :view do
+  let(:leader) { create(:user, email: 'jeff@jones.com', password: 'password1234') }
+  let(:project) { create(:project, name: 'Test Project', code: 'ABC1', status: 'ready', leader:) }
   let(:comment) {
     Comment.create!(
       body: 'MyText',
-      project: nil,
-      user: nil
+      project:,
+      user: leader
     )
   }
 

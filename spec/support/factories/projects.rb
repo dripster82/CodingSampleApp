@@ -5,5 +5,6 @@ FactoryBot.define do
     name { 'MyString' }
     code { 'MyString' }
     leader { nil }
+    status { 'ready' }
   end
 end

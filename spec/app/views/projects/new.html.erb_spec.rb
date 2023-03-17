@@ -3,11 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe 'projects/new', type: :view do
+  let(:leader) { create(:user, email: 'jeff@jones.com', password: 'password1234') }
+
   before do
     assign(:project, Project.new(
       name: 'MyString',
       code: 'MyString',
-      leader: nil
+      leader:,
+      status: 'ready'
     ))
   end
 
